@@ -4,6 +4,7 @@ import get_comments
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import configparser
+import os
 
 # Gets links using thread ids
 def get_links():
@@ -52,16 +53,13 @@ def send_email():
         server.sendmail(sender, receiver, msg.as_string())
 
 
-config = configparser.ConfigParser()
 try:
-    config.read('smtp.ini')
-    smtp_dict = config['smtp']
-    smtp_server = smtp_dict['smtp_server'] 
-    port = int(smtp_dict['port']) 
-    sender = smtp_dict['sender'] 
-    password = smtp_dict['password'] 
-    receiver = smtp_dict['receiver'] 
-    subject = smtp_dict['subject']
+    smtp_server = "smtp.gmail.com"
+    port = 465
+    sender = os.environ['sender'] 
+    password = os.environ["sender_password"] 
+    receiver = os.environ["receiver"]
+    subject = "Your Daily Digest" 
 except:
     print("Invalid config file")
 else:

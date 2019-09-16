@@ -1,5 +1,4 @@
 import praw
-import pprint
 import time
 import os
 
@@ -57,7 +56,12 @@ current_time = time.time()
 day_in_seconds = 86400
 yesterday_utc = current_time - day_in_seconds
 
-reddit = praw.Reddit("bot1")
+reddit = praw.Reddit(username = os.environ["username"],
+                password = os.environ["password"],
+                client_id = os.environ["client_id"],
+                client_secret = os.environ["client_secret"],
+                user_agent = "Comment Digest Bot 0.1")
+
 submission_ids = [
     "corh54", 
     "corghm"
